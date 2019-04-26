@@ -15,11 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
  */
 open class BaseViewModel : ViewModel() {
 
-    protected var compositeDisposable: CompositeDisposable
-
-    init {
-        compositeDisposable = CompositeDisposable()
-    }
+ var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
     override fun onCleared() {

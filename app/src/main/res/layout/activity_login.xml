@@ -1,148 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/displayWhite">
-
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
     <data>
 
         <variable
-            name="viewmodel"
-            type="com.blessedtreeit.product.activitycenter.flows.login.LoginViewModel" />
+                name="loginViewModel"
+                type="com.ayat.candyapp.login.LoginViewModel"/>
 
-        <import type="android.view.View" />
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            tools:context=".LoginActivity">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                tools:context=".flows.login.LoginActivity">
-
-                <ImageView
-                    android:id="@+id/iv_logo"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="@dimen/margin_x_large"
-                    android:src="@drawable/logo_btit_with_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvLabelUsername"
-                    style="@style/BaseTextView.LoginLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_x_large"
-                    android:elevation="1dp"
-                    android:includeFontPadding="false"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingTop="@dimen/padding_small"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:text="@string/label_username"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_logo" />
-
-                <EditText
-                    android:id="@+id/et_username"
-                    style="@style/FormTextView.LoginField"
-                    tvLabel="@{tvLabelUsername}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:elevation="1dp"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:text="@={viewmodel.name}"
-                    app:error="@{viewmodel.showUserNameError ? @string/error_required_field : null}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvLabelUsername" />
-
-                <TextView
-                    android:id="@+id/tvLabelPassword"
-                    style="@style/BaseTextView.LoginLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large"
-                    android:elevation="1dp"
-                    android:includeFontPadding="false"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingTop="@dimen/padding_small"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:text="@string/label_password"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_username" />
-
-                <EditText
-                    android:id="@+id/et_password"
-                    style="@style/FormTextView.LoginField"
-                    tvLabel="@{tvLabelPassword}"
-                    android:layout_marginBottom="@dimen/margin_large"
-                    android:elevation="1dp"
-                    android:inputType="textPassword"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:text="@={viewmodel.password}"
-                    app:error="@{viewmodel.showPasswordError ? @string/error_required_field : null}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvLabelPassword" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
-
-        <View
-            style="@style/BasicSeparator"
-            android:layout_width="match_parent" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
-            android:onClick="@{() -> viewmodel.onLoginClicked()}"
-            android:text="@string/btn_login"
-            android:visibility="@{viewmodel.loginButtonVisibility}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_password" />
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
-            android:visibility="@{viewmodel.loadingVisibility}" />
+            android:layout_height="match_parent"
+            tools:context=".flows.entry.EntryActivity">
 
         <ImageView
-            android:id="@+id/ivSuccess"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_check"
-            android:tint="@android:color/holo_green_light"
-            android:visibility="@{viewmodel.successVisibility}" />
-    </LinearLayout>
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:paddingTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_candy"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="0dp"
+                android:textColorHint="@color/colorAccent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_margin="8dp"
+                app:helperTextEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_logo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/username"
+                    style="@style/custom_edittext_style"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={loginViewModel.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorAccent"
+                app:helperTextEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/prompt_password"
+                    android:imeOptions="actionDone"
+                    style="@style/custom_edittext_style"
+                    android:inputType="textPassword"
+                    android:nextFocusDown="@+id/colorPrimaryDark"
+                    android:text="@={loginViewModel.password}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_user_name"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="#9BDED9"
+                android:onClick="@{() -> loginViewModel.onLoginClicked()}"
+                android:text="@string/title_log_in"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_password"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

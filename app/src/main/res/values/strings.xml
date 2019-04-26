@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CandyApp</string>
+    <string name="username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="title_log_in">Login</string>
+    <string name="username_or_password_not_valid">username or password is invalid</string>
 </resources>

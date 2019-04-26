@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -19,6 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 
@@ -42,7 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'androidx.test:rules:1.1.0-alpha4'
 
     //unit testing
     testImplementation 'androidx.arch.core:core-testing:2.0.1'
@@ -68,14 +79,18 @@ dependencies {
 
     //Dagger-2
     implementation 'com.google.dagger:dagger:2.17'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
 
+
+    // Koin
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.0-rc-2'
     //Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
 
     //LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
