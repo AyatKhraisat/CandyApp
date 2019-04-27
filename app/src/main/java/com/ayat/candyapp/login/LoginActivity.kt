@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.ayat.candyapp.R
-import com.ayat.candyapp.ViewModelProviderFactory
+import com.ayat.candyapp.ViewModelFactory
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivityLoginBinding
 import com.ayat.candyapp.di.Qualifiers

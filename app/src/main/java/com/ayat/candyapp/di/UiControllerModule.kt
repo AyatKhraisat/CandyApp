@@ -21,7 +21,7 @@ class UiControllerModule(private val context: Context) {
     @Provides
     @Qualifiers.ActivityContext
     @ViewScope
-     fun provideContext(): Context {
+    fun provideContext(): Context {
         return context
     }
 

@@ -13,17 +13,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class, NetworkModule::class, FactoryModule::class])
+@Component(modules = [ApplicationModule::class, NetworkModule::class])
 interface ApplicationComponent {
-
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): ApplicationComponent
-    }
-
 
     val endPoint: EndPoint
 
@@ -31,8 +22,8 @@ interface ApplicationComponent {
 
     val userManagementRepository: UserManagementRepository
 
-    fun inject(app: App)
+    fun inject(application: App)
 
     @Qualifiers.ApplicationContext
-    fun context(): Context
+    fun getApplication(): Context
 }

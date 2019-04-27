@@ -24,10 +24,12 @@ import dagger.multibindings.IntoMap
 abstract class FactoryModule {
 
     @Binds
+    @ViewScope
     abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
+    @ViewScope
     @ViewModelKey(LoginViewModel::class)
     abstract fun bindMyViewModel(myViewModel: LoginViewModel): ViewModel
 
