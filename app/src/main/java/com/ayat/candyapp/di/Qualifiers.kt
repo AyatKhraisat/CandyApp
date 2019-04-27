@@ -5,18 +5,10 @@ import java.lang.annotation.RetentionPolicy
 import kotlin.annotation.Retention
 
 /**
- * Created by: Ahmed Al-Hashimi
- * Created on: Dec. 27, 2018.
- *
- *
- * aalhashimi@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenterProduct
- *
- *
- * BTIT
- */
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 interface Qualifiers {
     @Qualifier
     @MustBeDocumented

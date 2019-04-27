@@ -10,16 +10,10 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 
 /**
- * Created by Ayat khraisat  on 12/18/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: PocMvp
- *
- *
- * Blessed Tree IT
- */
-
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 @Module
 abstract class FactoryModule {
 

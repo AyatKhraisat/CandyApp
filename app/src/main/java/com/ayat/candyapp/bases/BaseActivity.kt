@@ -9,7 +9,11 @@ import com.ayat.candyapp.di.UiControllerModule
 
 import io.reactivex.annotations.Nullable
 
-
+/**
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 abstract class BaseActivity : AppCompatActivity() {
 
     val uiControllerComponent: UiControllerComponent by lazy{

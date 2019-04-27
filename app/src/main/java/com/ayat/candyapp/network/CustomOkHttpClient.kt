@@ -19,16 +19,10 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 
 /**
- * Created by Ayat khraisat  on 01/05/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenter
- *
- *
- * Blessed Tree IT
- */
-
+ *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 object CustomOkHttpClient {
 
 

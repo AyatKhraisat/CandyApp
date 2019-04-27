@@ -5,16 +5,10 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * Created by Ayat khraisat  on 12/18/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: PocMvp
- *
- *
- * Blessed Tree IT
- */
-
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 @Module
 class UiControllerModule(private val context: Context) {
 

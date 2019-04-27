@@ -11,13 +11,9 @@ import javax.inject.Singleton
 
 /**
  * Created by Ayat khraisat  on 12/27/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenter
- *
- *
- * Blessed Tree IT
+ * ayatzkhraisat@gmail.com
+ * taken from
+ * https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/di/AppComponent.kt
  */
 @ViewScope
 class ViewModelFactory @Inject constructor(

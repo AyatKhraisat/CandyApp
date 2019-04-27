@@ -14,7 +14,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 import javax.inject.Singleton
-
+/**
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 @Module
 class NetworkModule(private val baseUrl: String) {
 

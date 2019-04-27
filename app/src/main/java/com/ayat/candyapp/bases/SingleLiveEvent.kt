@@ -11,15 +11,12 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 
 /**
- * Created by Ayat khraisat  on 12/30/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenter
- *
- *
- * Blessed Tree IT
- */
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ * taken from
+ * https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java
+ **/
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mPending = AtomicBoolean(false)

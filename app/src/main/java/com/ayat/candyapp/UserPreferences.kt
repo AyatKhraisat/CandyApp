@@ -11,17 +11,11 @@ import javax.inject.Singleton
 
 /**
  * Created by Ayat khraisat  on 4/1/2018.
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: BTIT-Dashboards-Android-V2.0
- *
- *
- * Blessed Tree IT
+ * ayatzkhraisat@gmail.com
  */
 @Singleton
 class UserPreferences @Inject
-constructor(@param:Qualifiers.ApplicationContext private val context: Context) {
+constructor(@Qualifiers.ApplicationContext private val context: Context) {
 
     private val USER_PREFERENCES_FILE_KEY = "user_file"
     private val DEFAULT_PREF_STRING_VALUE = ""
@@ -38,7 +32,8 @@ constructor(@param:Qualifiers.ApplicationContext private val context: Context) {
 
     var isLoggedIn: Boolean
         get() = userPreferences.getBoolean(PREF_IS_LOGGED_IN_KEY, false)
-        set(IsloggedIn) = userPreferences.edit().putBoolean(PREF_IS_LOGGED_IN_KEY, IsloggedIn).apply()
+        set(IsloggedIn) = userPreferences.edit().putBoolean(PREF_IS_LOGGED_IN_KEY,
+            IsloggedIn).apply()
 
 
     init {

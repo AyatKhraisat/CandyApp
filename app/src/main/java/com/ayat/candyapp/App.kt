@@ -11,7 +11,11 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-
+/**
+ *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 class App : Application() {
 
     val applicationComponent: ApplicationComponent by lazy {

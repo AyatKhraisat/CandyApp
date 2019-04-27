@@ -4,15 +4,10 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 /**
- * Created by Ayat khraisat  on 12/27/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenter
- *
- *
- * Blessed Tree IT
- */
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 open class BaseViewModel : ViewModel() {
 
  var compositeDisposable: CompositeDisposable = CompositeDisposable()

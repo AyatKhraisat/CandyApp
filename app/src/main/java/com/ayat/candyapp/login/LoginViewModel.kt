@@ -16,17 +16,11 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 import javax.inject.Inject
-
 /**
- * Created by Ayat khraisat  on 12/27/18
- * akhraisat@blessedtreeit.com
- *
- *
- * Project Name: ActivityCenter
- *
- *
- * Blessed Tree IT
- */
+ *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 class LoginViewModel @Inject
 constructor(private val userManagementRepository: UserManagementRepository) : BaseViewModel() {
 

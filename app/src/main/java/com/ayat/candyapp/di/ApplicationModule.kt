@@ -7,6 +7,11 @@ import dagger.Provides
 
 import javax.inject.Singleton
 
+/**
+ *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
 @Module
 class ApplicationModule(private val application: App) {
 
