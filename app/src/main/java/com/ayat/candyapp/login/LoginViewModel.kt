@@ -43,33 +43,21 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     ) { input -> input == null || input.toString().isEmpty() }
 
 
-//    private val isInputValid: Boolean
-//        get() = (!showPasswordError.value)!! && (!showUserNameError.value)!!
-//
-//    private//            if (successObservableItem.isSuccess()) {
-//    //                showLoginSuccess();
-//    //            } else {
-//    //                showLoginFail();
-//    //            }
-//    val onSuccessConsumer: Consumer<LoginModels.LoginResponseModel>
-//        get() = { successObservableItem -> }
-//
 
     fun onLoginClicked() {
-//        if (isInputValid) {
-//
-//            val loginObservable = userManagementRepository.getLoginObservable(name.value, password.value)
-//
-//            val loginDisposable = loginObservable
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSubscribe { disposable -> showLoading() }
-//                .doOnEvent { (token), throwable -> showLoginButton() }
-//                .doOnError { this.showError(it) }
-//                .subscribe(Consumer {  })
-//
-//            //  compositeDisposable.add(loginDisposable);
-//        }
+
+            val loginObservable = userManagementRepository.getLoginObservable(name.value!!, password.value!!)
+
+            val loginDisposable = loginObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { disposable -> showLoading() }
+                .doOnEvent { (token), throwable -> showLoginButton() }
+                .doOnError { this.showError(it) }
+                .subscribe(Consumer {  })
+
+              compositeDisposable.add(loginDisposable);
+
     }
 
     private fun showLoading() {

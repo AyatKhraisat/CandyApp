@@ -14,7 +14,7 @@ import retrofit2.http.POST
  **/
 interface EndPoint {
 
-    @POST("api/Account/Login")
+    @POST("login")
     fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel): Single<LoginModels.LoginResponseModel>
 
 }

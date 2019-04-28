@@ -11,6 +11,6 @@ import com.google.gson.annotations.SerializedName
  *Project: CandyApp
  **/
 object LoginModels {
-    data class LoginRequestModel(val userName: String, val password: String)
-    data class LoginResponseModel(val token: String)
+    data class LoginRequestModel(val username: String, val password: String)
+    data class LoginResponseModel(val Authorization: String)
 }
