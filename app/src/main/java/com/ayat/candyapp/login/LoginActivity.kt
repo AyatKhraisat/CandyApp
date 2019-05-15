@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(LoginViewModel::class.java)
-        binding.loginViewModel = loginViewModel
+        binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 
         //        loginViewModel.getOpenMainActivityEvent().observe(

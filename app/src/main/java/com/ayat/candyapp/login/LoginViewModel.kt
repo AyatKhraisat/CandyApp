@@ -13,6 +13,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import timber.log.Timber
 
 import javax.inject.Inject
@@ -42,10 +45,17 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
         password
     ) { input -> input == null || input.toString().isEmpty() }
 
+    // Create a Coroutine scope using a job to be able to cancel when needed
+    private var viewModelJob = Job()
+
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
 
 
     fun onLoginClicked() {
 
+        if(isInputValid()){
             val loginObservable = userManagementRepository.getLoginObservable(name.value!!, password.value!!)
 
             val loginDisposable = loginObservable
@@ -58,6 +68,18 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
 
               compositeDisposable.add(loginDisposable);
 
+    }}
+    private fun isInputValid(): Boolean {
+
+        if (showUserNameError.value == null) {
+            name.value = ""
+            return false
+        }
+        if (showPasswordError.value == null) {
+            password.value = ""
+            return false
+        }
+        return (!showPasswordError.value!!) && (!showUserNameError.value!!)!!
     }
 
     private fun showLoading() {

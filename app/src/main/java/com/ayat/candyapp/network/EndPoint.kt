@@ -4,6 +4,7 @@ package com.ayat.candyapp.network
 import com.ayat.candyapp.login.model.LoginModels
 import io.reactivex.Single
 import io.reactivex.annotations.NonNull
+import kotlinx.coroutines.Deferred
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -15,6 +16,6 @@ import retrofit2.http.POST
 interface EndPoint {
 
     @POST("login")
-    fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel): Single<LoginModels.LoginResponseModel>
+    fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel): Deferred<LoginModels.LoginResponseModel>
 
 }

@@ -5,7 +5,7 @@
     <data>
 
         <variable
-                name="loginViewModel"
+                name="viewModel"
                 type="com.ayat.candyapp.login.LoginViewModel"/>
 
     </data>
@@ -31,9 +31,10 @@
                 android:layout_width="0dp"
                 android:textColorHint="@color/colorAccent"
                 android:layout_height="wrap_content"
+                app:helperText="@{viewModel.showUserNameError ?   @string/error_required_field : null}"
+                app:helperTextEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_margin="8dp"
-                app:helperTextEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_logo">
@@ -47,7 +48,7 @@
                     style="@style/custom_edittext_style"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:text="@={loginViewModel.name}"
+                    android:text="@={viewModel.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_logo"
@@ -60,7 +61,8 @@
                 android:layout_margin="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:textColorHint="@color/colorAccent"
-                app:helperTextEnabled="false"
+                app:helperText="@{viewModel.showPasswordError ? @string/error_required_field : null}"
+                app:helperTextEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/til_name">
@@ -75,7 +77,7 @@
                     style="@style/custom_edittext_style"
                     android:inputType="textPassword"
                     android:nextFocusDown="@+id/colorPrimaryDark"
-                    android:text="@={loginViewModel.password}"
+                    android:text="@={viewModel.password}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_user_name"/>
@@ -87,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="#9BDED9"
-                android:onClick="@{() -> loginViewModel.onLoginClicked()}"
+                android:onClick="@{() -> viewModel.onLoginClicked()}"
                 android:text="@string/title_log_in"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
