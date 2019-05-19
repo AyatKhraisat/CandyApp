@@ -5,6 +5,7 @@ import android.content.Context
 import com.ayat.candyapp.App
 import com.ayat.candyapp.network.CustomOkHttpClient
 import com.ayat.candyapp.network.EndPoint
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import io.reactivex.annotations.NonNull
@@ -36,7 +37,8 @@ class NetworkModule(private val baseUrl: String) {
      fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .build()

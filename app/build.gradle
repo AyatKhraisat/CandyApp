@@ -93,6 +93,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
 
+    // Retrofit Coroutines Support
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
 
     //LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'

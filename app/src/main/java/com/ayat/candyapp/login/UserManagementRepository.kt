@@ -5,6 +5,7 @@ import com.ayat.candyapp.UserPreferences
 import com.ayat.candyapp.login.model.LoginModels
 import com.ayat.candyapp.network.EndPoint
 import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,15 +31,10 @@ constructor(private val endPoint: EndPoint, private val userPreferences: UserPre
             userPreferences.isLoggedIn = isLoggedIn
         }
 
-    fun getLoginObservable(userName: String, password: String): Single<LoginModels.LoginResponseModel> {
+    fun getLoginDeferrede(userName: String, password: String): Deferred<LoginModels.LoginResponseModel> {
         return endPoint.login(
             LoginModels.LoginRequestModel(userName, password)
-        )
-            .doOnSuccess { (token) ->
-                //                    if (loginModel.isSuccess()) {
-                //                        setUserName(loginModel.getFullName());
-                //                    }
-            }
+        );
     }
 
 

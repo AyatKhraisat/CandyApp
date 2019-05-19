@@ -6,19 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.bases.SingleLiveEvent
-
 import com.ayat.candyapp.login.model.LoginModels
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import com.ayat.candyapp.utils.Event
+import io.reactivex.internal.functions.ObjectHelper
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 
 import javax.inject.Inject
+
 /**
  *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
  *Email: ayatzkhraisat@gmail.com
@@ -30,12 +30,11 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    internal val openMainActivityEvent = SingleLiveEvent<Void>()
-    val showErrorMessage = MutableLiveData<Boolean>()
+    val openMainActivityEvent = MutableLiveData<Event<Any>>()
+    val showLoading = MutableLiveData<Event<Any>>()
+    val hideLoading = MutableLiveData<Event<Any>>()
+    val showError = MutableLiveData<Event<String>>()
 
-    private val loginButtonVisibility = MutableLiveData(View.VISIBLE)
-    private val loadingVisibility = MutableLiveData(View.GONE)
-    private val successVisibility = MutableLiveData(View.GONE)
 
     val showUserNameError = Transformations.map(
         name
@@ -52,23 +51,40 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-
     fun onLoginClicked() {
 
-        if(isInputValid()){
-            val loginObservable = userManagementRepository.getLoginObservable(name.value!!, password.value!!)
+        if (isInputValid()) {
+            coroutineScope.launch {
+                var getLoginDeferred = userManagementRepository.getLoginDeferrede(name.value!!, password.value!!)
+                try {
+                    showLoading()
 
-            val loginDisposable = loginObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { disposable -> showLoading() }
-                .doOnEvent { (token), throwable -> showLoginButton() }
-                .doOnError { this.showError(it) }
-                .subscribe(Consumer {  })
+                    val listResult : LoginModels.LoginResponseModel = getLoginDeferred.await()
+                    val auth:String =listResult.Authorization
+                    hideLoading()
+                } catch (e: Exception) {
+                    hideLoading()
+                    if ((e as HttpException).code() == 401)
+                        showError.value = Event("Login Failed")
+                    else
+                        showError.value = Event(e.message())
 
-              compositeDisposable.add(loginDisposable);
 
-    }}
+                }
+            }
+
+
+        }
+    }
+
+    fun showLoading() {
+        showLoading.value = Event(Object())
+    }
+
+    fun hideLoading() {
+        hideLoading.value = Event(Object())
+    }
+
     private fun isInputValid(): Boolean {
 
         if (showUserNameError.value == null) {
@@ -79,55 +95,14 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
             password.value = ""
             return false
         }
-        return (!showPasswordError.value!!) && (!showUserNameError.value!!)!!
+        return (!showPasswordError.value!!) && (!showUserNameError.value!!)
     }
 
-    private fun showLoading() {
-        loadingVisibility.value = View.VISIBLE
-        loginButtonVisibility.value = View.GONE
-    }
-
-    private fun showLoginButton() {
-        loadingVisibility.value = View.GONE
-        loginButtonVisibility.value = View.VISIBLE
-    }
-
-    private fun showError(throwable: Throwable) {
-        showErrorMessage.value = true
-        successVisibility.value = View.GONE
-        Timber.d(throwable)
-    }
-
-    private fun showLoginFail() {
-        successVisibility.value = View.GONE
-        showErrorMessage.value = true
-    }
-
-
-    private fun showLoginSuccess() {
-        successVisibility.value = View.VISIBLE
-        loginButtonVisibility.value = View.VISIBLE
-        openMainActivityEvent.call()
-    }
-
-    fun getLoadingVisibility(): LiveData<Int> {
-        return loadingVisibility
-    }
 
     override fun onCleared() {
         super.onCleared()
+        viewModelJob.cancel()
     }
 
-    fun getShowErrorMessage(): LiveData<Boolean> {
-        return showErrorMessage
-    }
-
-    fun getSuccessVisibility(): LiveData<Int> {
-        return successVisibility
-    }
-
-    fun getLoginButtonVisibility(): LiveData<Int> {
-        return loginButtonVisibility
-    }
 
 }

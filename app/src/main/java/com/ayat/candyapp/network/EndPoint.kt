@@ -16,6 +16,7 @@ import retrofit2.http.POST
 interface EndPoint {
 
     @POST("login")
-    fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel): Deferred<LoginModels.LoginResponseModel>
+    fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel)
+            : Deferred<LoginModels.LoginResponseModel>
 
 }
