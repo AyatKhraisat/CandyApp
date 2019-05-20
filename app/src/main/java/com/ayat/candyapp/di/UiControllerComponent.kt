@@ -9,7 +9,7 @@ import dagger.Component
  *Project: CandyApp
  **/
 @ViewScope
-@Component(dependencies = [ApplicationComponent::class], modules = [UiControllerModule::class,FactoryModule::class])
+@Component(dependencies = [ApplicationComponent::class], modules = [UiControllerModule::class,ViewModelsModule::class])
 interface UiControllerComponent {
 
     fun inject(loginActivity: LoginActivity)

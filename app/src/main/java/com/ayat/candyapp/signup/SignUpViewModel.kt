@@ -1,37 +1,29 @@
-package com.ayat.candyapp.login
+package com.ayat.candyapp.signup
 
-import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.bases.BaseViewModel
-import com.ayat.candyapp.bases.SingleLiveEvent
+import com.ayat.candyapp.login.UserManagementRepository
 import com.ayat.candyapp.login.model.LoginModels
 import com.ayat.candyapp.utils.Event
-import io.reactivex.internal.functions.ObjectHelper
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import timber.log.Timber
-
 import javax.inject.Inject
 
 /**
- *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
+ *Created by Ayat Khriasat on 20,May,2019 at 23:40
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-class LoginViewModel @Inject
+class SignUpViewModel @Inject
 constructor(private val userManagementRepository: UserManagementRepository) : BaseViewModel() {
 
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
-
-    val openMainActivityEvent = MutableLiveData<Event<Any>>()
-    val openSignUpActivity = MutableLiveData<Event<Any>>()
+    val confirmPassword = MutableLiveData<String>()
 
 
     val showUserNameError = Transformations.map(
@@ -42,17 +34,19 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
         password
     ) { input -> input == null || input.toString().isEmpty() }
 
+    val showConfirmPasswordError = Transformations.map(
+        confirmPassword
+    ) { input -> input == null || input.toString().isEmpty() }
+
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun onNewUserClicked() {
-        openSignUpActivity.value = Event(Any())
-    }
 
-    fun onLoginClicked() {
+    fun onSignupClicked() {
 
         if (isInputValid()) {
             coroutineScope.launch {
@@ -60,8 +54,8 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
                 try {
                     showLoading()
 
-                    val listResult : LoginModels.LoginResponseModel = getLoginDeferred.await()
-                    val auth:String =listResult.Authorization
+                    val listResult: LoginModels.LoginResponseModel = getLoginDeferred.await()
+                    val auth: String = listResult.Authorization
                     hideLoading()
                 } catch (e: Exception) {
                     hideLoading()
@@ -74,11 +68,8 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
                 }
             }
 
-
         }
     }
-
-
 
     private fun isInputValid(): Boolean {
 
@@ -90,14 +81,12 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
             password.value = ""
             return false
         }
+        if (showConfirmPasswordError.value == null) {
+            confirmPassword.value = ""
+            return false
+        }
         return (!showPasswordError.value!!) && (!showUserNameError.value!!)
+                && (!showConfirmPasswordError.value!!)
     }
-
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
 
 }

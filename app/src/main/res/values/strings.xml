@@ -5,4 +5,7 @@
     <string name="title_log_in">Login</string>
     <string name="error_required_field">Required Field</string>
     <string name="username_or_password_not_valid">username or password is invalid</string>
+    <string name="prompt_conf_password">Confirm Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="new_user">new User?</string>
 </resources>

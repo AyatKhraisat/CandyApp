@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import com.ayat.candyapp.R
 
 /**
- *Created by Ayat Khriasat on 19,May,2019 at 21:13
+ *Created by Ayat Khraisat on 19,May,2019 at 21:13
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/

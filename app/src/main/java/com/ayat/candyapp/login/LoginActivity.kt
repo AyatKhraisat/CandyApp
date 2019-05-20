@@ -14,6 +14,7 @@ import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivityLoginBinding
 import com.ayat.candyapp.dialogs.ProgressDialog
+import com.ayat.candyapp.signup.SignupActivity
 import javax.inject.Inject
 
 /**
@@ -48,6 +49,9 @@ class LoginActivity : BaseActivity() {
             }
 
         })
+
+        loginViewModel.openSignUpActivity.observe(this,
+            Observer { startActivity(Intent(LoginActivity@this,SignupActivity::class.java)) })
 
         loginViewModel.showLoading.observe(this, Observer { dialog.show() })
         loginViewModel.hideLoading.observe(this, Observer { dialog.hide() })
