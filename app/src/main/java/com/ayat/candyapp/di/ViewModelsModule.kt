@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ayat.candyapp.ViewModelFactory
 import com.ayat.candyapp.login.LoginViewModel
-import com.ayat.candyapp.signup.SignupViewModel
+import com.ayat.candyapp.signup.SignUpViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -32,8 +32,8 @@ abstract class ViewModelsModule {
     @Binds
     @IntoMap
     @ViewScope
-    @ViewModelKey(SignupViewModel::class)
-    abstract fun bindSignUpViewModel(signupViewModel: SignupViewModel): ViewModel
+    @ViewModelKey(SignUpViewModel::class)
+    abstract fun bindSignUpViewModel(signupViewModel: SignUpViewModel): ViewModel
 
 
 }

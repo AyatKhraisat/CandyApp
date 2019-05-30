@@ -8,4 +8,7 @@
     <string name="prompt_conf_password">Confirm Password</string>
     <string name="signup">Sign Up</string>
     <string name="new_user">new User?</string>
+    <string name="required_field">Required Field</string>
+    <string name="passwords_not_matches">Password not matches</string>
+    <string name="invalid_password">Invalid password</string>
 </resources>

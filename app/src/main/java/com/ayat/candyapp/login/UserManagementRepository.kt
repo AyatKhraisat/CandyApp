@@ -2,9 +2,10 @@ package com.ayat.candyapp.login
 
 
 import com.ayat.candyapp.UserPreferences
+import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.login.model.LoginModels
 import com.ayat.candyapp.network.EndPoint
-import io.reactivex.Single
+import com.ayat.candyapp.signup.models.SignUpRequestModel
 import kotlinx.coroutines.Deferred
 
 import javax.inject.Inject
@@ -31,9 +32,15 @@ constructor(private val endPoint: EndPoint, private val userPreferences: UserPre
             userPreferences.isLoggedIn = isLoggedIn
         }
 
-    fun getLoginDeferrede(userName: String, password: String): Deferred<LoginModels.LoginResponseModel> {
-        return endPoint.login(
+    fun getLoginDeferred(userName: String, password: String): Deferred<LoginModels.LoginResponseModel> {
+        return endPoint.loginAsync(
             LoginModels.LoginRequestModel(userName, password)
+        );
+    }
+
+    fun getSiguoDeffered(userName: String, password: String): Deferred<BaseResponse> {
+        return endPoint.signUpAsync(
+            SignUpRequestModel(userName, password)
         );
     }
 

@@ -1,8 +1,9 @@
 package com.ayat.candyapp.network
 
 
+import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.login.model.LoginModels
-import io.reactivex.Single
+import com.ayat.candyapp.signup.models.SignUpRequestModel
 import io.reactivex.annotations.NonNull
 import kotlinx.coroutines.Deferred
 import retrofit2.http.Body
@@ -16,7 +17,11 @@ import retrofit2.http.POST
 interface EndPoint {
 
     @POST("login")
-    fun login(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel)
+    fun loginAsync(@NonNull @Body loginRequestModel: LoginModels.LoginRequestModel)
             : Deferred<LoginModels.LoginResponseModel>
+
+    @POST("sign-up")
+    fun signUpAsync(@NonNull @Body signUpRequestModel: SignUpRequestModel )
+            : Deferred<BaseResponse>
 
 }

@@ -1,10 +1,15 @@
 package com.ayat.candyapp.signup
 
+import android.text.TextUtils
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.ayat.candyapp.R
+import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.login.UserManagementRepository
 import com.ayat.candyapp.login.model.LoginModels
+import com.ayat.candyapp.utils.AppUtils.validatePassword
 import com.ayat.candyapp.utils.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,25 +29,34 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
+    val signUpSuccessEvent =MutableLiveData<Event<String>>()
 
 
-    val showUserNameError = Transformations.map(
+    val userNameError = Transformations.map(
         name
     ) { input -> input == null || input.toString().isEmpty() }
 
-    val showPasswordError = Transformations.map(
-        password
-    ) { input -> input == null || input.toString().isEmpty() }
+    val passwordError = Transformations.map(password) {
+        if (TextUtils.isEmpty(it)) {
+            return@map R.string.required_field
+        } else if (!validatePassword(it))
+            return@map R.string.invalid_password
 
-    val showConfirmPasswordError = Transformations.map(
-        confirmPassword
-    ) { input -> input == null || input.toString().isEmpty() }
+        return@map null;
+    }
+
+    val confirmPasswordError: LiveData<Int> = Transformations.map(confirmPassword) {
+        if (TextUtils.isEmpty(it)) {
+            return@map R.string.required_field
+        } else if (it != password.value)
+            return@map R.string.passwords_not_matches
+
+        return@map null;
+    }
 
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
@@ -50,13 +64,19 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
 
         if (isInputValid()) {
             coroutineScope.launch {
-                var getLoginDeferred = userManagementRepository.getLoginDeferrede(name.value!!, password.value!!)
+                val getLoginDeferred = userManagementRepository.getSiguoDeffered(name.value!!, password.value!!)
                 try {
                     showLoading()
 
-                    val listResult: LoginModels.LoginResponseModel = getLoginDeferred.await()
-                    val auth: String = listResult.Authorization
+                    val response: BaseResponse = getLoginDeferred.await()
                     hideLoading()
+
+                    if(response.isSuccess) {
+                        signUpSuccessEvent.value = Event(response.message!!)
+                    }
+                    else
+                        showError.value = Event(response.message!!)
+
                 } catch (e: Exception) {
                     hideLoading()
                     if ((e as HttpException).code() == 401)
@@ -73,20 +93,20 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
 
     private fun isInputValid(): Boolean {
 
-        if (showUserNameError.value == null) {
+        if (userNameError.value == null) {
             name.value = ""
             return false
         }
-        if (showPasswordError.value == null) {
+        if (passwordError.value == null) {
             password.value = ""
             return false
         }
-        if (showConfirmPasswordError.value == null) {
+        if (confirmPasswordError.value == null) {
             confirmPassword.value = ""
             return false
         }
-        return (!showPasswordError.value!!) && (!showUserNameError.value!!)
-                && (!showConfirmPasswordError.value!!)
+        return (passwordError.value!=null) && (userNameError.value!=null)
+                && (confirmPasswordError.value!=null)
     }
 
 }
