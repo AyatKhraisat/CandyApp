@@ -32,7 +32,6 @@ class App : Application() {
         }
         LeakCanary.install(this)
 
-        Stetho.initializeWithDefaults(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

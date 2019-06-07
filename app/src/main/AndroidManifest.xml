@@ -15,9 +15,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".signup.SignupActivity">
+        <activity android:name=".user_flow.signup.SignupActivity">
         </activity>
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".user_flow.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,4 +1,4 @@
-package com.ayat.candyapp.signup.models
+package com.ayat.candyapp.user_flow.signup.models
 
 /**
  *Created by Ayat Khriasat on 31,May,2019 at 00:32

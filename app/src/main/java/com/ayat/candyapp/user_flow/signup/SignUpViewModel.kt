@@ -1,4 +1,4 @@
-package com.ayat.candyapp.signup
+package com.ayat.candyapp.user_flow.signup
 
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
@@ -7,8 +7,8 @@ import androidx.lifecycle.Transformations
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.bases.BaseViewModel
-import com.ayat.candyapp.login.UserManagementRepository
-import com.ayat.candyapp.login.model.LoginModels
+import com.ayat.candyapp.user_flow.login.UserManagementRepository
+import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.utils.AppUtils.validatePassword
 import com.ayat.candyapp.utils.Event
 import kotlinx.coroutines.CoroutineScope

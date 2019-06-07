@@ -1,8 +1,10 @@
-package com.ayat.candyapp.signup
+package com.ayat.candyapp.user_flow.login
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,42 +13,48 @@ import androidx.lifecycle.ViewModelProviders
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivityLoginBinding
-import com.ayat.candyapp.databinding.ActivitySignupBinding
 import com.ayat.candyapp.dialogs.ProgressDialog
-import com.ayat.candyapp.login.LoginViewModel
+import com.ayat.candyapp.user_flow.signup.SignupActivity
 import javax.inject.Inject
 
-class SignupActivity : BaseActivity() {
+/**
+ *Created by Ayat Khriasat on 26,April,2019 at 10:57 PM
+ *Email: ayatzkhraisat@gmail.com
+ *Project: CandyApp
+ **/
+class LoginActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
 
-    private lateinit var binding: com.ayat.candyapp.databinding.ActivitySignupBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var signUpViewModel: SignUpViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(SignUpViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this@SignupActivity, R.layout.activity_login)
+        var loginViewModel: LoginViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(LoginViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this@LoginActivity, R.layout.activity_login)
         with(binding) {
-            binding.viewModel = signUpViewModel
-            binding.lifecycleOwner = this@SignupActivity
+            binding.viewModel = loginViewModel
+            binding.lifecycleOwner = this@LoginActivity
         }
 
 
         var dialog = ProgressDialog.progressDialog(this);
 
-        signUpViewModel.showError.observe(this, Observer {
+        loginViewModel.showError.observe(this, Observer {
             it.getContentIfNotHandled()?.let {
                 showErrorDialog(it)
             }
 
         })
 
+        loginViewModel.openSignUpActivity.observe(this,
+            Observer { startActivity(Intent(LoginActivity@this, SignupActivity::class.java)) })
 
-        signUpViewModel.showLoading.observe(this, Observer { dialog.show() })
-        signUpViewModel.hideLoading.observe(this, Observer { dialog.hide() })
+        loginViewModel.showLoading.observe(this, Observer { dialog.show() })
+        loginViewModel.hideLoading.observe(this, Observer { dialog.hide() })
 
     }
 
@@ -56,7 +64,7 @@ class SignupActivity : BaseActivity() {
             .setMessage(message)
             .setPositiveButton(
                 "Ok", { dialog, which -> dialog.dismiss() })
-            .create();
+        .create();
 
         alertDialog.show();
     }
@@ -66,5 +74,8 @@ class SignupActivity : BaseActivity() {
 
     }
 
+    override fun onBackPressed() {
+        this.finishAffinity()
+    }
 
 }

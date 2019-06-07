@@ -1,4 +1,4 @@
-package com.ayat.candyapp.login.model
+package com.ayat.candyapp.user_flow.login.model
 
 import android.os.Parcel
 import android.os.Parcelable

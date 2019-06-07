@@ -1,8 +1,8 @@
 package com.ayat.candyapp.di
 
 
-import com.ayat.candyapp.login.LoginActivity
-import com.ayat.candyapp.signup.SignupActivity
+import com.ayat.candyapp.user_flow.login.LoginActivity
+import com.ayat.candyapp.user_flow.signup.SignupActivity
 import dagger.Component
 /**
  *Created by Ayat Khriasat on 27,April,2019 at 8:32 PM

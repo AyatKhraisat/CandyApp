@@ -3,8 +3,8 @@ package com.ayat.candyapp.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ayat.candyapp.ViewModelFactory
-import com.ayat.candyapp.login.LoginViewModel
-import com.ayat.candyapp.signup.SignUpViewModel
+import com.ayat.candyapp.user_flow.login.LoginViewModel
+import com.ayat.candyapp.user_flow.signup.SignUpViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

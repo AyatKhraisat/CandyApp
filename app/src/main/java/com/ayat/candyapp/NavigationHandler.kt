@@ -3,7 +3,7 @@ package com.ayat.candyapp
 import android.content.Context
 import android.content.Intent
 import com.ayat.candyapp.di.Qualifiers
-import com.ayat.candyapp.login.LoginActivity
+import com.ayat.candyapp.user_flow.login.LoginActivity
 import javax.inject.Singleton
 
 /**

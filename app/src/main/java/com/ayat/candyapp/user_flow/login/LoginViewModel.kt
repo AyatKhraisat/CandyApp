@@ -1,4 +1,4 @@
-package com.ayat.candyapp.login
+package com.ayat.candyapp.user_flow.login
 
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.bases.SingleLiveEvent
-import com.ayat.candyapp.login.model.LoginModels
+import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.utils.Event
 import io.reactivex.internal.functions.ObjectHelper
 

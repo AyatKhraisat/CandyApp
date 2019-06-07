@@ -5,7 +5,7 @@ import android.content.Context
 
 import com.ayat.candyapp.App
 import com.ayat.candyapp.UserPreferences
-import com.ayat.candyapp.login.UserManagementRepository
+import com.ayat.candyapp.user_flow.login.UserManagementRepository
 import com.ayat.candyapp.network.EndPoint
 import dagger.BindsInstance
 import dagger.Component
