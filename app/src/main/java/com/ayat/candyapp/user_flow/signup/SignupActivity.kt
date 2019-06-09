@@ -11,60 +11,31 @@ import androidx.lifecycle.ViewModelProviders
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivityLoginBinding
-import com.ayat.candyapp.databinding.ActivitySignupBinding
+import com.ayat.candyapp.databinding.ActivitySignUpBinding
 import com.ayat.candyapp.dialogs.ProgressDialog
 import com.ayat.candyapp.user_flow.login.LoginViewModel
 import javax.inject.Inject
 
-class SignupActivity : BaseActivity() {
+class SignupActivity : BaseActivity<SignUpViewModel,ActivitySignUpBinding>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-
-    private lateinit var binding: com.ayat.candyapp.databinding.ActivitySignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var signUpViewModel: SignUpViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(SignUpViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this@SignupActivity, R.layout.activity_login)
-        with(binding) {
-            binding.viewModel = signUpViewModel
-            binding.lifecycleOwner = this@SignupActivity
-        }
+        binding.viewModel = viewModel
 
 
         var dialog = ProgressDialog.progressDialog(this);
 
-        signUpViewModel.showError.observe(this, Observer {
-            it.getContentIfNotHandled()?.let {
-                showErrorDialog(it)
-            }
-
-        })
-
-
-        signUpViewModel.showLoading.observe(this, Observer { dialog.show() })
-        signUpViewModel.hideLoading.observe(this, Observer { dialog.hide() })
-
     }
 
-    fun showErrorDialog(message: String) {
-        var alertDialog = AlertDialog.Builder(this)
-            .setTitle("Error")
-            .setMessage(message)
-            .setPositiveButton(
-                "Ok", { dialog, which -> dialog.dismiss() })
-            .create();
-
-        alertDialog.show();
-    }
 
     override fun inject() {
         uiControllerComponent.inject(this)
 
     }
+    override fun getLayout(): Int =R.layout.activity_sign_up
+
+    override fun getViewModelClass(): Class<SignUpViewModel> =SignUpViewModel::class.java
 
 
 }

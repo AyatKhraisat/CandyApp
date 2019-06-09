@@ -1,22 +1,17 @@
 package com.ayat.candyapp.user_flow.login
 
-import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseViewModel
-import com.ayat.candyapp.bases.SingleLiveEvent
 import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.utils.Event
-import io.reactivex.internal.functions.ObjectHelper
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import timber.log.Timber
-
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 /**
@@ -33,14 +28,19 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val openMainActivityEvent = MutableLiveData<Event<Any>>()
     val openSignUpActivity = MutableLiveData<Event<Any>>()
 
+    val userNameError = Transformations.map(name, { input ->
+        if (input == null || input.toString().isEmpty())
+            return@map R.string.required_field
+        else return@map null
+    })
 
-    val showUserNameError = Transformations.map(
-        name
-    ) { input -> input == null || input.toString().isEmpty() }
-
-    val showPasswordError = Transformations.map(
+    val passwordError = Transformations.map(
         password
-    ) { input -> input == null || input.toString().isEmpty() }
+    ) { input ->
+        if (input == null || input.toString().isEmpty())
+            return@map R.string.required_field
+        else return@map null
+    }
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -56,20 +56,27 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
 
         if (isInputValid()) {
             coroutineScope.launch {
-                var getLoginDeferred = userManagementRepository.getLoginDeferrede(name.value!!, password.value!!)
+                var getLoginDeferred = userManagementRepository.getLoginDeferred(name.value!!, password.value!!)
                 try {
                     showLoading()
 
-                    val listResult : LoginModels.LoginResponseModel = getLoginDeferred.await()
-                    val auth:String =listResult.Authorization
+                    val listResult: LoginModels.LoginResponseModel = getLoginDeferred.await()
+                    val auth: String = listResult.Authorization
                     hideLoading()
                 } catch (e: Exception) {
                     hideLoading()
-                    if ((e as HttpException).code() == 401)
-                        showError.value = Event("Login Failed")
+                    if (e is HttpException)
+                        if (e.code() == 401)
+                            showError("Login Failed")
+                        else
+                            showError(e.message())
+                    else if (e is SocketTimeoutException)
+                        showError("Could not connect to the server")
                     else
-                        showError.value = Event(e.message())
-
+                        if (e.message == null)
+                            showError("Something went wrong")
+                        else
+                            showError(e.message!!)
 
                 }
             }
@@ -79,18 +86,15 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     }
 
 
-
     private fun isInputValid(): Boolean {
 
-        if (showUserNameError.value == null) {
+        if (name.value == null) {
             name.value = ""
-            return false
         }
-        if (showPasswordError.value == null) {
+        if (password.value == null) {
             password.value = ""
-            return false
         }
-        return (!showPasswordError.value!!) && (!showUserNameError.value!!)
+        return (passwordError.value == null) && (userNameError.value == null)
     }
 
 

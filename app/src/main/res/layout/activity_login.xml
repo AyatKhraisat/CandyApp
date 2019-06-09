@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:textColorHint="@color/colorAccent"
                 android:layout_height="wrap_content"
-                app:helperText="@{viewModel.showUserNameError ?   @string/error_required_field : null}"
+                helperTextValue="@{viewModel.userNameError}"
                 app:helperTextEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_margin="8dp"
@@ -59,8 +59,9 @@
                 android:layout_marginBottom="8dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:textColorHint="@color/colorAccent"
-                app:helperText="@{viewModel.showPasswordError ? @string/error_required_field : null}"
+                helperTextValue="@{viewModel.passwordError}"
                 app:helperTextEnabled="true"
+                app:passwordToggleEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/til_name"
                 app:layout_constraintStart_toStartOf="@+id/til_name"
                 app:layout_constraintTop_toBottomOf="@id/til_name">
@@ -70,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
+
                     android:imeOptions="actionDone"
                     style="@style/custom_edittext_style"
                     android:inputType="textPassword"

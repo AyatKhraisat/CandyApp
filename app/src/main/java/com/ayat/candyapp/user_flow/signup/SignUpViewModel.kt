@@ -8,7 +8,6 @@ import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.user_flow.login.UserManagementRepository
-import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.utils.AppUtils.validatePassword
 import com.ayat.candyapp.utils.Event
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +28,7 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
-    val signUpSuccessEvent =MutableLiveData<Event<String>>()
+    val signUpSuccessEvent = MutableLiveData<Event<String>>()
 
 
     val userNameError = Transformations.map(
@@ -71,18 +70,17 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
                     val response: BaseResponse = getLoginDeferred.await()
                     hideLoading()
 
-                    if(response.isSuccess) {
+                    if (response.isSuccess) {
                         signUpSuccessEvent.value = Event(response.message!!)
-                    }
-                    else
-                        showError.value = Event(response.message!!)
+                    } else
+                       showError(response.message!!)
 
                 } catch (e: Exception) {
                     hideLoading()
                     if ((e as HttpException).code() == 401)
-                        showError.value = Event("Login Failed")
+                        showError("Login Failed")
                     else
-                        showError.value = Event(e.message())
+                        showError(e.message())
 
 
                 }
@@ -105,8 +103,8 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
             confirmPassword.value = ""
             return false
         }
-        return (passwordError.value!=null) && (userNameError.value!=null)
-                && (confirmPasswordError.value!=null)
+        return (passwordError.value != null) && (userNameError.value != null)
+                && (confirmPasswordError.value != null)
     }
 
 }

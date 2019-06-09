@@ -13,4 +13,9 @@
         <item name="android:textColorHint">@color/colorAccent</item>
     </style>
 
+    <style name="TransparentProgressAlertDialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

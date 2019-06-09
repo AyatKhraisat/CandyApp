@@ -17,7 +17,7 @@ class App : Application() {
 
     val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
-            .networkModule(NetworkModule("http://192.168.1.120:8080/"))
+            .networkModule(NetworkModule("http://192.168.1.116:8085/"))
             .applicationModule(ApplicationModule(this))
             .build()
     }

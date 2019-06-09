@@ -18,13 +18,14 @@ object AppUtils {
     }
 
 
+    @JvmStatic
     @BindingAdapter("helperTextValue")
     fun setHelperTextValue(textInputLayout: TextInputLayout, resourceId: Int?) {
 
-        if (resourceId == null)
-            textInputLayout.helperText = null
-        else
+        if(resourceId!=null)
             textInputLayout.helperText = textInputLayout.context.getString(resourceId)
+        else
+            textInputLayout.helperText =""
 
     }
 }

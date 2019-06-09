@@ -1,5 +1,6 @@
 package com.ayat.candyapp.bases
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ayat.candyapp.utils.Event
@@ -12,20 +13,41 @@ import io.reactivex.disposables.CompositeDisposable
  **/
 open class BaseViewModel : ViewModel() {
 
-    val showLoading = MutableLiveData<Event<Any>>()
-    val hideLoading = MutableLiveData<Event<Any>>()
-    val showError = MutableLiveData<Event<String>>()
+    val showDialogSingleLiveEvent: LiveData<Event<String>>
+        get() = _showDialogSingleLiveEvent
+    private val _showDialogSingleLiveEvent = MutableLiveData<Event<String>>()
+
+    val showLoadingDialogSingleLiveEvent: LiveData<Event<Any>>
+        get() = _showLoadingDialogSingleLiveEvent
+    private val _showLoadingDialogSingleLiveEvent = MutableLiveData<Event<Any>>()
+
+    val hideDialogEventMutableLiveData: LiveData<Event<Any>>
+        get() = _hideDialogEventMutableLiveData
+    private val _hideDialogEventMutableLiveData = MutableLiveData<Event<Any>>()
+
+    val showErrorEventMutableLiveData: LiveData<Event<String>>
+        get() = _showErrorEventMutableLiveData
+    private val _showErrorEventMutableLiveData = MutableLiveData<Event<String>>()
 
 
-    fun showLoading() {
-        showLoading.value = Event(Object())
+    protected var compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
+    }
+
+
+
+    fun showError(text: String) {
+        _showErrorEventMutableLiveData.value = Event(text)
     }
 
     fun hideLoading() {
-        hideLoading.value = Event(Object())
+        _hideDialogEventMutableLiveData.value = Event(Any())
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun showLoading() {
+        _showLoadingDialogSingleLiveEvent.value = Event(Any())
     }
 }
