@@ -6,7 +6,7 @@
 
         <variable
                 name="viewModel"
-                type="com.ayat.candyapp.user_flow.login.LoginViewModel"/>
+                type="com.ayat.candyapp.user_flow.login.HomeViewModel"/>
 
     </data>
 

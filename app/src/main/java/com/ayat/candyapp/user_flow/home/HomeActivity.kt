@@ -13,7 +13,7 @@ import com.ayat.candyapp.user_flow.signup.SignupActivity
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-class LoginActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
+class HomeActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

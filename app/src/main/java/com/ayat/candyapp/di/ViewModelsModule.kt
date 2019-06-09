@@ -3,11 +3,11 @@ package com.ayat.candyapp.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ayat.candyapp.ViewModelFactory
+import com.ayat.candyapp.user_flow.login.HomeViewModel
 import com.ayat.candyapp.user_flow.login.LoginViewModel
 import com.ayat.candyapp.user_flow.signup.SignUpViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 /**
@@ -25,8 +25,14 @@ abstract class ViewModelsModule {
     @Binds
     @IntoMap
     @ViewScope
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewScope
     @ViewModelKey(LoginViewModel::class)
-    abstract fun bindMyViewModel(loginViewModel: LoginViewModel): ViewModel
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 
 
     @Binds
