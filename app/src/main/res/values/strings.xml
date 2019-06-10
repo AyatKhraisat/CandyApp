@@ -12,4 +12,5 @@
     <string name="passwords_not_matches">Password not matches</string>
     <string name="invalid_password">Invalid password</string>
     <string name="loading">Loading…</string>
+    <string name="no_data">No candy Here</string>
 </resources>

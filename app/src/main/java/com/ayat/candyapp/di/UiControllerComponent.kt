@@ -1,7 +1,7 @@
 package com.ayat.candyapp.di
 
 
-import com.ayat.candyapp.user_flow.login.HomeActivity
+import com.ayat.candyapp.user_flow.home.HomeActivity
 import com.ayat.candyapp.user_flow.login.LoginActivity
 import com.ayat.candyapp.user_flow.signup.SignupActivity
 import dagger.Component
@@ -15,7 +15,7 @@ import dagger.Component
 interface UiControllerComponent {
 
     fun inject(loginActivity: LoginActivity)
-    fun inject(loginActivity: HomeActivity)
+    fun inject(homeActivity: HomeActivity)
     fun inject(signupActivity: SignupActivity)
 
 }

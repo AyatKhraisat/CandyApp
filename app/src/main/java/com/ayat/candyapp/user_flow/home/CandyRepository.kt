@@ -16,7 +16,6 @@ import javax.inject.Singleton
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-@Singleton
 class CandyRepository @Inject
 constructor(private val endPoint: EndPoint, private val userPreferences: UserPreferences) {
 

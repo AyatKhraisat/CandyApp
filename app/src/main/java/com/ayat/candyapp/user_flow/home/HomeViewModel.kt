@@ -1,10 +1,12 @@
-package com.ayat.candyapp.user_flow.login
+package com.ayat.candyapp.user_flow.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.user_flow.home.CandyRepository
+import com.ayat.candyapp.user_flow.home.models.CandyModel
 import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.utils.Event
 import kotlinx.coroutines.CoroutineScope
@@ -23,80 +25,16 @@ import javax.inject.Inject
 class HomeViewModel @Inject
 constructor(private val candyRepository: CandyRepository) : BaseViewModel() {
 
-    val name = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
+    //TODO create generic adapter and use it
+    private val _mutableLiveDataList :MutableLiveData<List<CandyModel>> = MutableLiveData()
+    private val mutableLiveDataList :LiveData<List<CandyModel>>
+    get() =_mutableLiveDataList
 
-    val openMainActivityEvent = MutableLiveData<Event<Any>>()
-    val openSignUpActivity = MutableLiveData<Event<Any>>()
-
-    val userNameError = Transformations.map(name, { input ->
-        if (input == null || input.toString().isEmpty())
-            return@map R.string.required_field
-        else return@map null
-    })
-
-    val passwordError = Transformations.map(
-        password
-    ) { input ->
-        if (input == null || input.toString().isEmpty())
-            return@map R.string.required_field
-        else return@map null
-    }
-
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun onNewUserClicked() {
-        openSignUpActivity.value = Event(Any())
-    }
 
-    fun onLoginClicked() {
-
-//        if (isInputValid()) {
-//            coroutineScope.launch {
-//                var getLoginDeferred = userManagementRepository.getLoginDeferred(name.value!!, password.value!!)
-//                try {
-//                    showLoading()
-//
-//                    val listResult: LoginModels.LoginResponseModel = getLoginDeferred.await()
-//                    val auth: String = listResult.Authorization
-//                    hideLoading()
-//                } catch (e: Exception) {
-//                    hideLoading()
-//                    if (e is HttpException)
-//                        if (e.code() == 401)
-//                            showError("Login Failed")
-//                        else
-//                            showError(e.message())
-//                    else if (e is SocketTimeoutException)
-//                        showError("Could not connect to the server")
-//                    else
-//                        if (e.message == null)
-//                            showError("Something went wrong")
-//                        else
-//                            showError(e.message!!)
-//
-//                }
-//            }
-//
-//
-//        }
-    }
-
-
-    private fun isInputValid(): Boolean {
-
-        if (name.value == null) {
-            name.value = ""
-        }
-        if (password.value == null) {
-            password.value = ""
-        }
-        return (passwordError.value == null) && (userNameError.value == null)
-    }
 
 
     override fun onCleared() {

@@ -1,4 +1,4 @@
-package com.ayat.candyapp.user_flow.login
+package com.ayat.candyapp.user_flow.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.ayat.candyapp.user_flow.signup.SignupActivity
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-class HomeActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
+class HomeActivity : BaseActivity<HomeViewModel, com.ayat.candyapp.databinding.ActivityHomeBinding>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +25,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
     override fun observeLiveData() {
         super.observeLiveData()
 
-        viewModel.openSignUpActivity.observe(this,
-            Observer { startActivity(Intent( this, SignupActivity::class.java)) })
 
     }
 
@@ -36,7 +34,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
     }
 
 
-    override fun getLayout(): Int = R.layout.activity_login;
+    override fun getLayout(): Int = R.layout.activity_home;
 
 
     override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java

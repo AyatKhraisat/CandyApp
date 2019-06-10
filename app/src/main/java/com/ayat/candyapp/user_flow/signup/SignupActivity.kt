@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivitySignUpBinding
-import com.ayat.candyapp.dialogs.ProgressDialog
 
 class SignupActivity : BaseActivity<SignUpViewModel,ActivitySignUpBinding>() {
 
@@ -12,9 +11,6 @@ class SignupActivity : BaseActivity<SignUpViewModel,ActivitySignUpBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
-
-
-        var dialog = ProgressDialog.progressDialog(this);
 
     }
 

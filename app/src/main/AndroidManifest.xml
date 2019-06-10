@@ -18,12 +18,16 @@
         <activity android:name=".user_flow.signup.SignupActivity">
         </activity>
         <activity android:name=".user_flow.login.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+        <activity android:name=".user_flow.login.LoginActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
+        <activity android:name=".user_flow.home.HomeActivity"/>
     </application>
 
 </manifest>

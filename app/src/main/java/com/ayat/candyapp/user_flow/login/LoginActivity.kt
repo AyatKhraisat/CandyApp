@@ -13,7 +13,7 @@ import com.ayat.candyapp.user_flow.signup.SignupActivity
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-class LoginActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
+class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity<HomeViewModel, ActivityLoginBinding>() {
     override fun getLayout(): Int = R.layout.activity_login;
 
 
-    override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+    override fun getViewModelClass(): Class<LoginViewModel> = LoginViewModel::class.java
 
 
     override fun onBackPressed() {
