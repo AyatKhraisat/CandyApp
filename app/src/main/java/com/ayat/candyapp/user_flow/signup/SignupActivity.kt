@@ -1,6 +1,7 @@
 package com.ayat.candyapp.user_flow.signup
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivitySignUpBinding
@@ -18,6 +19,13 @@ class SignupActivity : BaseActivity<SignUpViewModel,ActivitySignUpBinding>() {
     override fun inject() {
         uiControllerComponent.inject(this)
 
+    }
+
+    override fun observeLiveData() {
+        super.observeLiveData()
+        viewModel.signUpSuccessEvent.observe(this, Observer {
+            onBackPressed()
+        })
     }
     override fun getLayout(): Int =R.layout.activity_sign_up
 
