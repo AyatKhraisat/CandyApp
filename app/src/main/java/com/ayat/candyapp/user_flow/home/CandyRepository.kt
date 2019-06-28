@@ -5,6 +5,7 @@ import com.ayat.candyapp.UserPreferences
 import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.user_flow.login.model.LoginModels
 import com.ayat.candyapp.network.EndPoint
+import com.ayat.candyapp.user_flow.home.models.CandyModel
 import com.ayat.candyapp.user_flow.signup.models.SignUpRequestModel
 import kotlinx.coroutines.Deferred
 
@@ -31,13 +32,10 @@ constructor(private val endPoint: EndPoint, private val userPreferences: UserPre
             userPreferences.isLoggedIn = isLoggedIn
         }
 
-//    fun getCandyList(: Deferred<LoginModels.LoginResponseModel> {
-//        return endPoint.loginAsync(
-//            LoginModels.LoginRequestModel(userName, password)
-//        );
-//    }
 
-
+    fun getCandyList(auth: String): Deferred<List<CandyModel>> {
+        return endPoint.getCandyList(auth);
+    }
 
 
 }

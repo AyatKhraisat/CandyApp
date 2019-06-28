@@ -1,5 +1,6 @@
 package com.ayat.candyapp.user_flow.home
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -26,15 +27,36 @@ class HomeViewModel @Inject
 constructor(private val candyRepository: CandyRepository) : BaseViewModel() {
 
     //TODO create generic adapter and use it
-    private val _mutableLiveDataList :MutableLiveData<List<CandyModel>> = MutableLiveData()
-    private val mutableLiveDataList :LiveData<List<CandyModel>>
-    get() =_mutableLiveDataList
+    private val _mutableLiveDataList: MutableLiveData<List<CandyModel>> = MutableLiveData()
+    val mutableLiveDataList: LiveData<List<CandyModel>>
+        get() = _mutableLiveDataList
 
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    fun getCandyList(auth: String) {
+        coroutineScope.launch {
+            val getLoginDeferred = candyRepository.getCandyList(auth)
+            try {
+                showLoading()
 
+                val candyModel: List<CandyModel> = getLoginDeferred.await()
+                hideLoading()
+                _mutableLiveDataList.value = candyModel
+            } catch (e: Exception) {
+                hideLoading()
+                if (e is SocketTimeoutException)
+                    showError("Could not connect to the server")
+                else
+                    if (TextUtils.isEmpty(e.message))
+                        showError("Something went wrong")
+                    else
+                        showError(e.message!!)
+
+            }
+        }
+    }
 
 
     override fun onCleared() {

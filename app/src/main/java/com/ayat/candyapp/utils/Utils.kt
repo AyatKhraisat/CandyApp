@@ -1,6 +1,8 @@
 package com.ayat.candyapp.utils
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.ayat.candyapp.R
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
@@ -25,6 +27,17 @@ object AppUtils {
             textInputLayout.error = null
         else
             textInputLayout.error = textInputLayout.context.getString(resourceId)
+    }
+    @JvmStatic
+    @BindingAdapter("randomSrc")
+    fun setErrorValue(imageView: ImageView, id: Int?) {
+
+        if(id!!.rem(4)==0)
+            imageView.setImageResource(R.drawable.ic_orange)
+       else if(id.rem(2)==0)
+            imageView.setImageResource(R.drawable.ic_candy_green)
+        else
+            imageView.setImageResource(R.drawable.ic_candy_pink)
     }
 
 }
