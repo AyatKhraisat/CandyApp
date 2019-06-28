@@ -9,120 +9,123 @@
                 type="com.ayat.candyapp.user_flow.signup.SignUpViewModel"/>
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="16dp"
-            android:paddingTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_candy"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_name"
-            android:layout_width="0dp"
-            android:textColorHint="@color/colorAccent"
-            android:layout_height="wrap_content"
-            app:helperTextEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_margin="8dp"
-                android:hint="@string/username"
-                style="@style/custom_edittext_style"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:text="@={viewModel.name}"
+        <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:paddingTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_logo"
-        />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:textColorHint="@color/colorAccent"
-            app:helperTextEnabled="true"
-            app:passwordToggleEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_name">
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_candy"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="0dp"
+                android:textColorHint="@color/colorAccent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                errorValue="@{viewModel.userNameError}"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_margin="8dp"
-                android:hint="@string/prompt_password"
-                android:imeOptions="actionDone"
-                style="@style/custom_edittext_style"
-                android:inputType="textPassword"
-                android:nextFocusDown="@+id/colorPrimaryDark"
-                android:text="@={viewModel.password}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_user_name"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_logo">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_conf_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:passwordToggleEnabled="true"
-            android:textColorHint="@color/colorAccent"
-            app:helperTextEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_password">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_conf_password"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/username"
+                    style="@style/custom_edittext_style"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={viewModel.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="@string/prompt_conf_password"
-                android:imeOptions="actionDone"
-                style="@style/custom_edittext_style"
-                android:inputType="textPassword"
-                android:nextFocusDown="@+id/colorPrimaryDark"
-                android:text="@={viewModel.confirmPassword}"
+                errorValue="@{viewModel.passwordError}"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorAccent"
+                app:passwordToggleEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_password"/>
+                app:layout_constraintTop_toBottomOf="@id/til_name">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/prompt_password"
+                    android:imeOptions="actionDone"
+                    style="@style/custom_edittext_style"
+                    android:inputType="textPassword"
+                    android:nextFocusDown="@+id/colorPrimaryDark"
+                    android:text="@={viewModel.password}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_user_name"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="#9BDED9"
-            android:onClick="@{() -> viewModel.onSignupClicked()}"
-            android:text="@string/signup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_conf_password"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_conf_password"
+                android:layout_width="0dp"
+                errorValue="@{viewModel.confirmPasswordError}"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:passwordToggleEnabled="true"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_conf_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_margin="8dp"
+                    android:hint="@string/prompt_conf_password"
+                    android:imeOptions="actionDone"
+                    style="@style/custom_edittext_style"
+                    android:inputType="textPassword"
+                    android:nextFocusDown="@+id/colorPrimaryDark"
+                    android:text="@={viewModel.confirmPassword}"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--android:text="@={viewModel.confirmPassword}"-->
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="#9BDED9"
+                android:onClick="@{() -> viewModel.onSignupClicked()}"
+                android:text="@string/signup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_conf_password"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

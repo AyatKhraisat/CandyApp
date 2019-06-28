@@ -1,5 +1,6 @@
 package com.ayat.candyapp.user_flow.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.R
@@ -25,8 +26,14 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val openMainActivityEvent = MutableLiveData<Event<Any>>()
-    val openSignUpActivity = MutableLiveData<Event<Any>>()
+    val _openMainActivityEvent = MutableLiveData<Event<String>>()
+    private val openMainActivityEvent: LiveData<Event<String>>
+        get() = _openMainActivityEvent
+
+    val _openSignUpActivity = MutableLiveData<Event<Any>>()
+    val openSignUpActivity: LiveData<Event<Any>>
+        get() = _openSignUpActivity
+
 
     val userNameError = Transformations.map(name, { input ->
         if (input == null || input.toString().isEmpty())
@@ -49,20 +56,21 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun onNewUserClicked() {
-        openSignUpActivity.value = Event(Any())
+        _openSignUpActivity.value = Event(Any())
     }
 
     fun onLoginClicked() {
 
         if (isInputValid()) {
             coroutineScope.launch {
-                var getLoginDeferred = userManagementRepository.getLoginDeferred(name.value!!, password.value!!)
+                val getLoginDeferred = userManagementRepository.getLoginDeferred(name.value!!, password.value!!)
                 try {
                     showLoading()
 
                     val listResult: LoginModels.LoginResponseModel = getLoginDeferred.await()
                     val auth: String = listResult.Authorization
                     hideLoading()
+                    _openMainActivityEvent.value = Event(auth)
                 } catch (e: Exception) {
                     hideLoading()
                     if (e is HttpException)

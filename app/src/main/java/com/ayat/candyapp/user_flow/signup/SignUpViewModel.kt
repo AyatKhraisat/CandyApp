@@ -31,10 +31,12 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val signUpSuccessEvent = MutableLiveData<Event<String>>()
 
 
-    val userNameError = Transformations.map(
-        name
-    ) { input -> input == null || input.toString().isEmpty() }
 
+    val userNameError = Transformations.map(name, { input ->
+        if (input == null || input.toString().isEmpty())
+            return@map R.string.required_field
+        else return@map null
+    })
     val passwordError = Transformations.map(password) {
         if (TextUtils.isEmpty(it)) {
             return@map R.string.required_field
@@ -57,6 +59,8 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+
 
 
     fun onSignupClicked() {
@@ -91,20 +95,17 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
 
     private fun isInputValid(): Boolean {
 
-        if (userNameError.value == null) {
+        if (name.value == null) {
             name.value = ""
-            return false
         }
-        if (passwordError.value == null) {
+        if (password.value == null) {
             password.value = ""
-            return false
         }
-        if (confirmPasswordError.value == null) {
+        if (confirmPassword.value == null) {
             confirmPassword.value = ""
-            return false
         }
-        return (passwordError.value != null) && (userNameError.value != null)
-                && (confirmPasswordError.value != null)
+        return (passwordError.value == null) && (userNameError.value == null)
+                && (confirmPasswordError.value == null)
     }
 
 }

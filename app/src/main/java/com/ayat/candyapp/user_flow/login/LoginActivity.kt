@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.ayat.candyapp.R
 import com.ayat.candyapp.bases.BaseActivity
 import com.ayat.candyapp.databinding.ActivityLoginBinding
+import com.ayat.candyapp.user_flow.home.HomeActivity
 import com.ayat.candyapp.user_flow.signup.SignupActivity
 
 /**
@@ -26,7 +27,12 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
         super.observeLiveData()
 
         viewModel.openSignUpActivity.observe(this,
-            Observer { startActivity(Intent( this, SignupActivity::class.java)) })
+            Observer { startActivity(Intent(this, SignupActivity::class.java)) })
+        viewModel._openMainActivityEvent.observe(this,
+            Observer {
+                val auth = it.getContentIfNotHandled()
+                auth?.let { HomeActivity.launchActivity(this, auth) }
+            })
 
     }
 

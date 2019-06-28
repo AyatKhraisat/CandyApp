@@ -19,13 +19,12 @@ object AppUtils {
 
 
     @JvmStatic
-    @BindingAdapter("helperTextValue")
-    fun setHelperTextValue(textInputLayout: TextInputLayout, resourceId: Int?) {
-
-        if(resourceId!=null)
-            textInputLayout.helperText = textInputLayout.context.getString(resourceId)
+    @BindingAdapter("errorValue")
+    fun setErrorValue(textInputLayout: TextInputLayout, resourceId: Int?) {
+        if (resourceId == null)
+            textInputLayout.error = null
         else
-            textInputLayout.helperText =""
-
+            textInputLayout.error = textInputLayout.context.getString(resourceId)
     }
+
 }

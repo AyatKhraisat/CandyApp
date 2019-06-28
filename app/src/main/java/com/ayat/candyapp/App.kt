@@ -17,7 +17,7 @@ class App : Application() {
 
     val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
-            .networkModule(NetworkModule("http://192.168.1.116:8085/"))
+            .networkModule(NetworkModule("http://192.168.1.120:8080/"))
             .applicationModule(ApplicationModule(this))
             .build()
     }
@@ -26,8 +26,6 @@ class App : Application() {
         super.onCreate()
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
             return
         }
         LeakCanary.install(this)

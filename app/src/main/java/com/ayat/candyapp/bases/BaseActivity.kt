@@ -34,7 +34,7 @@ abstract class BaseActivity<VM : BaseViewModel, V : ViewDataBinding> :
     AppCompatActivity(), ShowDialogInterface {
 
     companion object {
-        private val LOADING_DIALOG_TAG = "loading_dialog"
+        private const val LOADING_DIALOG_TAG = "loading_dialog"
 
     }
 
@@ -76,7 +76,7 @@ abstract class BaseActivity<VM : BaseViewModel, V : ViewDataBinding> :
 
     private fun showProgressDialog(text: String) {
         loadingDialog = LoadingDialogFragment.newInstance(text)
-
+        loadingDialog!!.setCancelable(false);
         loadingDialog!!.show(supportFragmentManager, LOADING_DIALOG_TAG)
     }
 
