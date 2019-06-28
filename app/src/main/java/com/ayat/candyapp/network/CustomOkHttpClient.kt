@@ -6,7 +6,6 @@ import android.net.NetworkInfo
 
 import com.ayat.candyapp.App
 import com.ayat.candyapp.BuildConfig
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
@@ -30,7 +29,6 @@ object CustomOkHttpClient {
 
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(provideHttpLoggingInterceptor())
-        builder.addNetworkInterceptor(StethoInterceptor())
 
 
         return builder.build()
