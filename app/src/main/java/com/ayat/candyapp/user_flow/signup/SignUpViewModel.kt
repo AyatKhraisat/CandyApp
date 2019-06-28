@@ -28,8 +28,10 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
-    val signUpSuccessEvent = MutableLiveData<Event<String>>()
 
+    private val _signUpSuccessEvent = MutableLiveData<Event<String>>()
+    val signUpSuccessEvent: LiveData<Event<String>>
+        get() = _signUpSuccessEvent
 
 
     val userNameError = Transformations.map(name, { input ->
@@ -61,8 +63,6 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-
-
     fun onSignupClicked() {
 
         if (isInputValid()) {
@@ -74,10 +74,10 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
                     val response: BaseResponse = getLoginDeferred.await()
                     hideLoading()
 
-                    if (response.isSuccess) {
-                        signUpSuccessEvent.value = Event(response.message!!)
+                    if (response.success) {
+                        _signUpSuccessEvent.value = Event(response.message!!)
                     } else
-                       showError(response.message!!)
+                        showError(response.message!!)
 
                 } catch (e: Exception) {
                     hideLoading()

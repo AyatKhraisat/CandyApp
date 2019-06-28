@@ -26,11 +26,11 @@ constructor(private val userManagementRepository: UserManagementRepository) : Ba
     val name = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val _openMainActivityEvent = MutableLiveData<Event<String>>()
-    private val openMainActivityEvent: LiveData<Event<String>>
+    private val _openMainActivityEvent = MutableLiveData<Event<String>>()
+    val openMainActivityEvent: LiveData<Event<String>>
         get() = _openMainActivityEvent
 
-    val _openSignUpActivity = MutableLiveData<Event<Any>>()
+    private val _openSignUpActivity = MutableLiveData<Event<Any>>()
     val openSignUpActivity: LiveData<Event<Any>>
         get() = _openSignUpActivity
 

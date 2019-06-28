@@ -3,9 +3,6 @@ package com.ayat.candyapp
 
 import android.app.Application
 import com.ayat.candyapp.di.*
-
-import com.facebook.stetho.Stetho
-import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
 
 /**
@@ -24,11 +21,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-        LeakCanary.install(this)
 
 
         if (BuildConfig.DEBUG) {

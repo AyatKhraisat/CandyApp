@@ -28,7 +28,11 @@ interface EndPoint {
             : Deferred<BaseResponse>
 
     @GET("candy")
-    fun getCandyList(@NonNull @Header("Authorization") auth :String)
+    fun getCandyList(@NonNull @Header("Authorization") auth: String)
             : Deferred<List<CandyModel>>
+
+    @POST("candy")
+    fun addCandy(@NonNull @Header("Authorization") auth: String,@Body candyModel: CandyModel)
+            : Deferred<BaseResponse>
 
 }

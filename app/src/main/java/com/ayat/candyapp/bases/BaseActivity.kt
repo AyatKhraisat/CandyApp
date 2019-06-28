@@ -101,7 +101,6 @@ abstract class BaseActivity<VM : BaseViewModel, V : ViewDataBinding> :
         observeLiveData()
     }
 
-    @CallSuper
    open protected fun observeLiveData() {
         viewModel.showErrorEventMutableLiveData.observe(this, Observer<Event<String>> { stringEvent ->
             val errorMessage = stringEvent.getContentIfNotHandled()

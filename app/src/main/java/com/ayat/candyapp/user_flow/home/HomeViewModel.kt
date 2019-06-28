@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ayat.candyapp.R
+import com.ayat.candyapp.bases.BaseResponse
 import com.ayat.candyapp.bases.BaseViewModel
 import com.ayat.candyapp.user_flow.home.CandyRepository
 import com.ayat.candyapp.user_flow.home.models.CandyModel
@@ -23,13 +24,17 @@ import javax.inject.Inject
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-class HomeViewModel @Inject
+class HomeViewModel
+@Inject
 constructor(private val candyRepository: CandyRepository) : BaseViewModel() {
 
-    //TODO create generic adapter and use it
     private val _mutableLiveDataList: MutableLiveData<List<CandyModel>> = MutableLiveData()
     val mutableLiveDataList: LiveData<List<CandyModel>>
         get() = _mutableLiveDataList
+
+    private val _showAddDialog: MutableLiveData<Event<Any>> = MutableLiveData()
+    val showAddDialog: LiveData<Event<Any>>
+        get() = _showAddDialog
 
     private var viewModelJob = Job()
 
@@ -58,6 +63,35 @@ constructor(private val candyRepository: CandyRepository) : BaseViewModel() {
         }
     }
 
+    fun addCandy(auth: String, candyModel: CandyModel) {
+        coroutineScope.launch {
+            val getLoginDeferred = candyRepository.addCandy(candyModel, auth)
+            try {
+                showLoading()
+
+                val response: BaseResponse = getLoginDeferred.await()
+                if (!response.success) {
+                    showError(response.message!!)
+                    hideLoading()
+                } else
+                    getCandyList(auth)
+            } catch (e: Exception) {
+                hideLoading()
+                if (e is SocketTimeoutException)
+                    showError("Could not connect to the server")
+                else
+                    if (TextUtils.isEmpty(e.message))
+                        showError("Something went wrong")
+                    else
+                        showError(e.message!!)
+
+            }
+        }
+    }
+
+    fun onAddClicked() {
+        _showAddDialog.value = Event(Any())
+    }
 
     override fun onCleared() {
         super.onCleared()

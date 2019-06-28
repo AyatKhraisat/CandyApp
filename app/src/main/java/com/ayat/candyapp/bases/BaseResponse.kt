@@ -5,4 +5,4 @@ package com.ayat.candyapp.bases
  *Email: ayatzkhraisat@gmail.com
  *Project: CandyApp
  **/
-data class BaseResponse(var isSuccess:Boolean, var message: String?)
+data class BaseResponse(var success:Boolean, var message: String?)

@@ -36,6 +36,8 @@ constructor(private val endPoint: EndPoint, private val userPreferences: UserPre
     fun getCandyList(auth: String): Deferred<List<CandyModel>> {
         return endPoint.getCandyList(auth);
     }
-
+    fun addCandy(candy: CandyModel,auth: String): Deferred<BaseResponse> {
+        return endPoint.addCandy(auth,candy);
+    }
 
 }

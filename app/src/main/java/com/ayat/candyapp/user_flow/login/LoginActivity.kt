@@ -28,7 +28,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
 
         viewModel.openSignUpActivity.observe(this,
             Observer { startActivity(Intent(this, SignupActivity::class.java)) })
-        viewModel._openMainActivityEvent.observe(this,
+        viewModel.openMainActivityEvent.observe(this,
             Observer {
                 val auth = it.getContentIfNotHandled()
                 auth?.let { HomeActivity.launchActivity(this, auth) }
